@@ -28,6 +28,7 @@ public class AIManager : BaseManager
         if (_playerManager == null)
         {
             Debug.LogError("PlayerManager not found");
+
         }
     }
 
@@ -37,6 +38,8 @@ public class AIManager : BaseManager
         if (_health <= 0f)
         {
             currentState = State.Dead; //If the AIs health is 0 or less the AI is dead
+            _combatCanvas.SetActive(false);
+
         }
         switch (currentState)
         {

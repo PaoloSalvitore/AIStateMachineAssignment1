@@ -9,10 +9,10 @@ public class StateMachine : MonoBehaviour
     //comma separated list of identifiers
     public enum State
     {
-        //Three different
+        //Four different states
         Attack,
         Defence,
-      //  RunAway,
+        RunAway,
         BerryPicking
     }
 
@@ -37,10 +37,10 @@ public class StateMachine : MonoBehaviour
             case State.Defence:
                 StartCoroutine(DefenceState());
                 break;
-           /* case State.RunAway:
+            case State.RunAway:
                 StartCoroutine(RunAwayState());
                 break;
-            */
+            
             case State.BerryPicking:
                 StartCoroutine(BerryPickingState());
                 break;
@@ -89,7 +89,7 @@ public class StateMachine : MonoBehaviour
         NextState();
     }
     
-   /* private IEnumerator RunAwayState()
+   private IEnumerator RunAwayState()
     {
         Debug.Log("RunAway: Enter");
         while (currentState == State.RunAway)
@@ -101,7 +101,7 @@ public class StateMachine : MonoBehaviour
         Debug.Log("RunAway: Exit");
         NextState();
     }
-   */ 
+  
     private IEnumerator BerryPickingState()
     {
         Debug.Log("BerryPicking: Enter");

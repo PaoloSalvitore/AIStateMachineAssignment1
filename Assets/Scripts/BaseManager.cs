@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public abstract class BaseManager : MonoBehaviour
 {
+
+    [SerializeField] GameObject _combatCanvas;
+
     //serializeField means we can modify this in unity even if its private
     [SerializeField] protected float _health = 100f;
     [SerializeField] protected float _maxHealth = 100f;
@@ -43,6 +46,8 @@ public abstract class BaseManager : MonoBehaviour
         {
             _health = 0;
             Debug.Log("I Died");
+            _combatCanvas.SetActive(false);
+
         }
 
         UpdateHealthText();
