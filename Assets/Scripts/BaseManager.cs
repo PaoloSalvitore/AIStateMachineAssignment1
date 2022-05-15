@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public abstract class BaseManager : MonoBehaviour
 {
 
-    [SerializeField] GameObject _combatCanvas;
+    [SerializeField] GameObject _combat1Canvas;
 
     //serializeField means we can modify this in unity even if its private
     [SerializeField] protected float _health = 100f;
@@ -31,6 +31,7 @@ public abstract class BaseManager : MonoBehaviour
             _healthText.text = _health.ToString("n0");
         }
     }
+
     
     public void Heal(float heal)
     {
@@ -46,7 +47,8 @@ public abstract class BaseManager : MonoBehaviour
         {
             _health = 0;
             Debug.Log("I Died");
-            _combatCanvas.SetActive(false);
+            _combat1Canvas.SetActive(false);
+            Time.timeScale = 1;
 
         }
 

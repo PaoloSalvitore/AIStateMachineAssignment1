@@ -9,12 +9,16 @@ public class AIMovement : MonoBehaviour
 {
     public Transform player; //to find the location of player
     public float chaseDistance = 3; //how far the player needs to be for the AI to start a chase
-    
+
+    public Transform square;
+    public Transform drop;
+
     //public GameObject[] position;
     public List<GameObject> position; //The waypoint the AI is heading to
     public int positionIndex = 0; //Controls which waypoint the AI should be chasing
     public GameObject wayPointPrefab; //To be included with other waypoints
-    
+    public int pickedBerry;
+    public static int berryPicked;
         
     public float speed = 1.5f;  //Speed of the AI
     public float minGoalDistance = 0.05f;  //How close the Ai needs to be with the 
@@ -41,6 +45,7 @@ public class AIMovement : MonoBehaviour
         NewWayPoint();
         NewWayPoint();
         NewWayPoint();
+        berryPicked = 0;
 
 
        // RemoveCurrentWayPoint();
@@ -59,6 +64,7 @@ public class AIMovement : MonoBehaviour
          //method 2 give list.removeat an index to remove from the list*/
         GameObject current = position[positionIndex];
         position.RemoveAt(positionIndex); //Move on to the next waypoint
+        Debug.Log("Destroy this please");
         Destroy(current); //Destroy the current waypoint
 
         NewWayPoint(); //Generate a new waypoint
@@ -111,9 +117,12 @@ public class AIMovement : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, position[positionIndex].transform.position) < minGoalDistance)
         {
-
+            //  RemoveCurrentWayPoint();
+            Debug.Log("Way point has been updated");
             positionIndex++;
-            
+            pickedBerry++;
+            berryPicked = pickedBerry;
+
             if (positionIndex >= position.Count)
             {
                 positionIndex = 0;
@@ -135,22 +144,13 @@ public class AIMovement : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+  public void ResetDrop()
     {
-        if (collision.gameObject.tag == "Goal")
-        {
-
-
-            Destroy(gameObject); //To destroy the current game object
-          //  Destroy(current);
-
-
-        }
-        /* else if (collision.gameObject.tag == "AI")
-         {
-             Destroy(gameObject);
-         }
-    */
+        pickedBerry = 0;
+        berryPicked = pickedBerry;
     }
+
+
+
 
 }

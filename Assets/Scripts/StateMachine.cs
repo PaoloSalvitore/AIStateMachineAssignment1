@@ -6,13 +6,19 @@ using UnityEngine.VFX;
 
 public class StateMachine : MonoBehaviour
 {
+
+    public GameObject drop;
+    public GameObject square;
+    
+
     //comma separated list of identifiers
     public enum State
     {
         //Four different states
         Attack,
         Defence,
-        RunAway,
+      //  RunAway,
+        Goal,
         BerryPicking
     }
 
@@ -35,13 +41,19 @@ public class StateMachine : MonoBehaviour
                 StartCoroutine(AttackState());
                 break;
             case State.Defence:
-                StartCoroutine(DefenceState());
+                StartCoroutine(CombatState());
                 break;
-            case State.RunAway:
-                StartCoroutine(RunAwayState());
+            //case State.RunAway:
+            //    StartCoroutine(RunAwayState());
+            //    break;
+
+            case State.Goal:
+
+                StartCoroutine(GoalState());
                 break;
-            
+
             case State.BerryPicking:
+
                 StartCoroutine(BerryPickingState());
                 break;
         }
@@ -49,6 +61,9 @@ public class StateMachine : MonoBehaviour
     private IEnumerator AttackState()
     {
         Debug.Log("Attack: Enter");
+
+     //   aiMovement.AIMoveTowards(squ.transform);
+
         while (currentState == State.Attack)
         {
             aiMovement.AIMoveTowards(aiMovement.player);
@@ -63,42 +78,60 @@ public class StateMachine : MonoBehaviour
         NextState();
     }
     
-    private IEnumerator DefenceState()
+    private IEnumerator CombatState()
     {
-        Debug.Log("Defence: Enter");
-        //runs every frame
-        //sounds like the update
-        
-        float timeOfLastSpawn = Time.time; 
+        Debug.Log("CombatState: Enter");
+
+
         while (currentState == State.Defence)
         {
-            Debug.Log("Currently Defending");
-            
-           
-                
-            if ( timeOfLastSpawn + 3f  < Time.time)
+            aiMovement.AIMoveTowards(aiMovement.square);
+
+
+
+            if (Vector2.Distance(transform.position, aiMovement.square.position) < 0.1f)
             {
-                //spawn new waypoint
-                timeOfLastSpawn = Time.time;
+                currentState = State.BerryPicking;
             }
-            
+
             yield return null;
-            Debug.Log("next frame Currently Defending");
+
         }
-        Debug.Log("Defence: Exit");
+        
+
+
+            
+          
+        Debug.Log("CombatState: Exit");
         NextState();
     }
-    
-   private IEnumerator RunAwayState()
+ 
+    private IEnumerator GoalState()
     {
-        Debug.Log("RunAway: Enter");
-        while (currentState == State.RunAway)
+
+       // aiMovement.FindClosestWaypoint();
+
+        Debug.Log("Hello Goal State");
+        while (currentState == State.Goal)
         {
-            Debug.Log("Currently Running Away");
-            
+           
+            aiMovement.AIMoveTowards(aiMovement.drop);
+
+            if (Vector2.Distance(transform.position, aiMovement.drop.position) < 0.1f)
+            {
+                aiMovement.ResetDrop();
+                currentState = State.Defence;
+            }
+
+            //if (!aiMovement.IsPlayerInRange())
+            //{
+            //    currentState = State.BerryPicking;
+            //}
+
             yield return null;
         }
-        Debug.Log("RunAway: Exit");
+
+        
         NextState();
     }
   
@@ -117,6 +150,10 @@ public class StateMachine : MonoBehaviour
                 currentState = State.Attack;
             }
 
+            if (AIMovement.berryPicked==5)
+            {
+                currentState = State.Goal;
+            }
      
 
             

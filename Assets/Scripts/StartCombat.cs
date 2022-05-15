@@ -15,7 +15,7 @@ public class StartCombat : MonoBehaviour
             return;
         }
         Debug.Log("WE HAVE HIT AN AI");
-
+        
         _combatCanvas.SetActive(true);
         Time.timeScale = 0;
 

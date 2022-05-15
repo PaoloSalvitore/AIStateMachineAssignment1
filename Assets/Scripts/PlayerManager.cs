@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerManager : BaseManager
 {
     private AIManager _aiManager;
-    [SerializeField] protected CanvasGroup _buttonGroup;
+    [SerializeField] protected CanvasGroup _PlayerButtonGroup;
     protected override void Start()
     {
         base.Start();
@@ -13,7 +13,7 @@ public class PlayerManager : BaseManager
             Debug.LogError("AIManager not found");
         }
 
-        if (_buttonGroup == null)
+        if (_PlayerButtonGroup == null)
         {
             Debug.LogError("CanvasGroup _buttonGroup not attached"); //Checks to see if _buttonGroup is attached
         }
@@ -22,12 +22,12 @@ public class PlayerManager : BaseManager
 
     public override void TakeTurn()
     {
-        _buttonGroup.interactable = true; //give the ability to click on a button
+        _PlayerButtonGroup.interactable = true; //give the ability to click on a button
     }
 
     protected override void EndTurn()
     {
-        _buttonGroup.interactable = false; //remvoes the ability to click on the button
+        _PlayerButtonGroup.interactable = false; //remvoes the ability to click on the button
         _aiManager.TakeTurn();
     }
 

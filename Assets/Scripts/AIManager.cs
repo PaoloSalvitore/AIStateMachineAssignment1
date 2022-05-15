@@ -125,7 +125,7 @@ public class AIManager : BaseManager
     {
         Debug.Log("AI IS DEAD YOU WIN");
         _combatCanvas.SetActive(false);
-       Time.timeScale = 0;
+       Time.timeScale = 1;
     }
 
     public void Splash() //If the AI chooses splash
