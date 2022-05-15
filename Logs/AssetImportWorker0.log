@@ -173,3 +173,4 @@ Received Import Request.
 Start importing Assets/Scripts/AIManager.cs using Guid(97628e5eb6ea0c2f49f2be0d9ad0eff7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9c30669ac67fcf46bb2357259bb2242') in 0.007633 seconds 
   Import took 0.105950 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
